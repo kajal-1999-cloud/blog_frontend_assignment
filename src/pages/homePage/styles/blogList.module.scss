@@ -1,0 +1,27 @@
+.listContainer {
+  .listWrapper {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    .blogList {
+      width: 300px;
+      border: 1px solid grey;
+&:hover{
+  cursor: pointer;
+  box-shadow: 1px 1px 5px grey;
+}
+      .imageWrapper {
+        img {
+          width: 300px;
+          height: 180px;
+          object-fit: cover;
+
+        }
+      }
+      .paraWrapper {
+           margin: 1rem;
+           margin-bottom: 2rem;
+      }
+    }
+  }
+}

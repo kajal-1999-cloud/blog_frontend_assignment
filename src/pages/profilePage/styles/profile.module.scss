@@ -1,0 +1,60 @@
+.profilePage{
+    width: 80vw;
+    min-height: 90vh;
+   margin: auto;
+   margin-top: 1rem;
+   box-shadow: 2px 2px 5px grey;
+    .profileWrapper{
+        display: flex;
+        align-items: start;
+        justify-content: center;
+        gap: 2rem;
+   border-bottom: 1px solid rgb(209, 205, 205);
+
+        h5{
+            padding: 1.5rem 2rem;
+            background-color: rgb(104, 165, 112);
+            border-radius: 50%;
+        }
+        button{
+            padding: .5rem 1rem;
+            border: none;
+            background-color: rgb(104, 165, 112);
+            color: white;
+            border-radius: 10px;
+        margin-bottom: 1rem;
+
+        }
+    }
+
+    .listContainer {
+        margin: 2rem;
+        margin-bottom: 5rem;
+        .listWrapper {
+          display: flex;
+          gap: 2rem;
+          flex-wrap: wrap;
+          .blogList {
+            width: 300px;
+            border: 1px solid grey;
+      &:hover{
+        cursor: pointer;
+        box-shadow: 1px 1px 5px grey;
+      }
+            .imageWrapper {
+              img {
+                width: 300px;
+                height: 180px;
+                object-fit: cover;
+      
+              }
+            }
+            .paraWrapper {
+                 margin: 1rem;
+                 margin-bottom: 2rem;
+            }
+          }
+        }
+      }
+      
+}

@@ -1,0 +1,122 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  font-family: "Poppins", sans-serif;
+
+  .logo {
+    width: 130px;
+    height: 70px;
+  }
+
+  + img:first-child {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    border: 1px solid red;
+  }
+
+  .navlinks {
+    display: flex;
+    justify-content: space-around;
+    gap: 3rem;
+    align-items: center;
+
+    .loginIcon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      span {
+        &:first-child {
+          margin-top: 8px;
+        }
+        &:last-child {
+          padding: 15px 25px;
+          margin: 0.2rem;
+          color: white;
+          border-radius: 50%;
+          background-color: #44ac84;
+        }
+      }
+    }
+  }
+  a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .loginButton {
+    padding: 0.7rem 1.3rem;
+    color: white;
+    width: 100px;
+    background-color: #34A67B ;
+    border-radius: 0.5rem;
+    border: none;
+    &:hover{
+color: #34A67B;
+background-color: #edfff9;
+border: 1px solid #34A67B;
+cursor: pointer;
+    }
+  }
+
+  .mobileView {
+    display: none;
+  }
+
+  @media (max-width: 859px) {
+    zoom: 0.9;
+  }
+
+  @media (max-width: 749px) {
+    padding: 0.5rem 0.5rem;
+  }
+
+  @media (max-width: 657px) {
+    zoom: 0.8;
+  }
+
+  @media (max-width: 597px) {
+    .desktopView {
+      display: none;
+    }
+
+    .mobileView {
+      display: block;
+      position: relative;
+      margin: 1.5rem 2rem;
+      width: 70vw;
+      right: 0;
+      text-align: end;
+
+      .mobileList {
+        border: 1px solid #c8e5fc;
+        position: absolute;
+        background-color: rgb(255, 255, 255);
+        z-index: 100;
+        box-shadow: 2px 2px 6px grey;
+        padding: 20px 15px;
+        padding-right: 30px;
+        width: 95vw;
+        margin-top: 13px;
+        border-radius: 5px;
+        right: -15px;
+        text-align: center;
+        padding-bottom: 40px;
+        a {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          border-bottom: 1px solid grey;
+        }
+        .loginButton {
+          margin-top: 30px;
+        }
+      }
+    }
+  }
+}
