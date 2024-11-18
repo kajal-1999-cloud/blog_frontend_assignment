@@ -10,7 +10,7 @@ export function HomePage() {
     <div>
       <Navbar />
       <div className={styles.blogContainer}>
-        <Category />
+        {/* <Category /> */}
         <BlogList/>
       </div>
     </div>

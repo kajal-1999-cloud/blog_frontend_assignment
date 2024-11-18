@@ -73,9 +73,9 @@ message.warning("please login")
         {blogData?.map((item) => {
           return (
             <div className={styles.blogList} onClick={() => handleNavigate(item._id)}>
-              <div className={styles.imageWrapper}>
+              {/* <div className={styles.imageWrapper}>
                 <img src={item.image} alt="" />
-              </div>
+              </div> */}
               <div className={styles.paraWrapper}>
                 <h4>{item.title.toUpperCase()}</h4>
                 <p>
