@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import styles from "./styles/profile.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { message } from "antd";
 import { SvgRepo } from "../../components/SvgRepo";
 import { Spin } from "antd";
@@ -11,6 +11,7 @@ import Navbar from "../../components/navbar";
 
 function ProfilePage() {
   const user = JSON.parse(localStorage.getItem("user"));
+  const { id } = useParams();
   // Decode token to get user ID
   const token = localStorage.getItem("token");
   const userId = token ? jwtDecode(token)?.id : null;
@@ -44,7 +45,7 @@ function ProfilePage() {
       image: img1,
       title: "Technologies",
       content:
-        "  The AMC 8 is a 25-question, 40-minute competition for students   in grade 8 and below. The material covered on the AMC 8 includes topics from a typical middle school mathematics curriculum. Possible topics include but are not limited to counting and probability, estimation, proportional reasoning, elementary geometry including the Pythagorean Theorem, spatial visualization, everyday applications, and reading and interpreting graphs and tables. In addition, some of the later questions may involve linear or quadratic functions and equations, coordinate geometry, and other topics traditionally covered in a beginning algebra course.",
+        "The AMC 8 is a 25-question, 40-minute competition for students   in grade 8 and below. The material covered on the AMC 8 includes topics from a typical middle school mathematics curriculum. Possible topics include but are not limited to counting and probability, estimation, proportional reasoning, elementary geometry including the Pythagorean Theorem, spatial visualization, everyday applications, and reading and interpreting graphs and tables. In addition, some of the later questions may involve linear or quadratic functions and equations, coordinate geometry, and other topics traditionally covered in a beginning algebra course.",
       tags: "technology",
     },
   ];
@@ -68,6 +69,8 @@ function ProfilePage() {
       setLoading(false);
     }
   };
+
+
 
   const handleNavigate = (blogId) => {
     if (token) {

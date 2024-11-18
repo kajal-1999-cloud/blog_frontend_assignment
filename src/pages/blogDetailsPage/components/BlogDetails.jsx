@@ -109,7 +109,7 @@ export function BlogDetails() {
                   <span onClick={() => handleDelete(blogDetails._id)}>
                     {SvgRepo.Delete}
                   </span>
-                  <span>{SvgRepo.edit}</span>
+                  <span onClick={() => navigate(`/edit/post/${blogDetails._id}`)}>{SvgRepo.edit}</span>
                   <span>
                   {isLiked ? (
                     <>
