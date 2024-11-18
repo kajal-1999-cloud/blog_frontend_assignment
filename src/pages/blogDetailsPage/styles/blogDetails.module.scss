@@ -10,7 +10,11 @@
         position: relative;
         display: flex;
         flex-direction: column;
-    }
+        >img {
+            height: 500px;
+            object-fit: cover;
+        }
+
     
      .goBack {
         position: absolute;
@@ -22,15 +26,12 @@
         align-items: center;
         gap: 0.5rem;
         font-size: 1.5rem;
+        p{
+            font-size: 1rem;
+            }
+            
     }
-     .goBack p{
-    font-size: 1rem;
-    }
-    
-     .wrapper>img {
-        height: 500px;
-        object-fit: cover;
-    }
+
     
      .titleAndControls {
         margin-top: 2rem;
@@ -43,9 +44,9 @@
         display: flex;
         align-items: center;
         gap: 1.25rem;
-    }
     
-     .controls>.edit {
+    
+     >.edit {
         cursor: pointer;
         padding: 0.4rem 0.75rem;
         border-radius: 12px;
@@ -53,14 +54,16 @@
         color: #fff;
     }
     
-     .controls>.delete {
+     >.delete {
         cursor: pointer;
-        padding: 0.4rem 0.75rem;
+        padding: 0.4rem 1rem;
         border-radius: 12px;
-        background-color: #f00;
         color: #fff;
+        span{
+            padding-inline: 1rem;
+        }
     }
-    
+}
      .like {
         cursor: pointer;
         padding: 0.4rem 0.75rem;
@@ -74,12 +77,6 @@
         text-transform: capitalize;
     }
     
-     .descAndLikes {
-        // margin-top: 0.5rem;
-        // display: flex;
-        // flex-direction: column;
-        // align-items: center;
-    }
     
      .desc {
         margin-top: 2.5rem;
@@ -112,12 +109,13 @@
         justify-content: space-between;
         color: #333;
         font-size: 18px;
+        >span>span {
+            font-size: 20px;
+            color: #000;
+            font-weight: bold;
+        
+        }
     }
-     .authorAndCreatedAt>span>span {
-        font-size: 20px;
-        color: #000;
-        font-weight: bold;
-    
-    }
+}
 }
 }

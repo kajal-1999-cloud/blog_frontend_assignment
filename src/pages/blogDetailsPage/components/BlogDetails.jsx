@@ -45,9 +45,11 @@ export function BlogDetails() {
 
   // delete post
   const handleDelete = async (postId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this post?");
+    if (!confirmed) return;
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_API}/api/blogs/post/${postId}`,
+        `${import.meta.env.VITE_BACKEND_API}/api/blogs/delete/post/${postId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -64,6 +66,7 @@ export function BlogDetails() {
 
   // like/unlike
   const handleLike = async (postId) => {
+    console.log("hello")
     try {
       await axios.post(
         `${import.meta.env.VITE_BACKEND_API}/api/blogs/like/post/${postId}`,
@@ -94,17 +97,29 @@ export function BlogDetails() {
       <div className={styles.container}>
         <div className={styles.wrapper}>
           <Link to="/" className={styles.goBack}>
-            <span className={styles.arrow}>Back</span>
+            <span className={styles.arrow}>Go Back</span>
           </Link>
-          <img src={blogDetails.image} alt={blogDetails.title} />
+          {/* <img src={blogDetails.image} alt={blogDetails.title} /> */}
           <div className={styles.titleAndControls}>
             <h3 className={styles.title}>{blogDetails.title.toUpperCase()}</h3>
-            {blogDetails.userId?._id === userId ? (
+            {blogDetails.userId === userId ? (
               <div className={styles.controls}>
                 <div className={styles.delete}>
+              
                   <span onClick={() => handleDelete(blogDetails._id)}>
                     {SvgRepo.Delete}
                   </span>
+                  <span>{SvgRepo.edit}</span>
+                  <span>
+                  {isLiked ? (
+                    <>
+                      {" "}
+                      {blogDetails?.likes?.length} {SvgRepo.likes}{" "}
+                    </>
+                  ) : (
+                    SvgRepo.outLineLike
+                  )}
+                    </span>
                 </div>
               </div>
             ) : (
@@ -115,9 +130,9 @@ export function BlogDetails() {
                       {" "}
                       {blogDetails?.likes?.length} {SvgRepo.likes}{" "}
                     </>
-                  ) : (
-                    SvgRepo.outLineLike
-                  )}
+                  ) : <span >{ SvgRepo.outLineLike}</span>
+                   
+                  }
                 </span>
               </div>
             )}

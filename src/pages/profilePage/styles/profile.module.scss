@@ -11,6 +11,9 @@
         gap: 2rem;
    border-bottom: 1px solid rgb(209, 205, 205);
 
+
+  
+
         h5{
             padding: 1.5rem 2rem;
             background-color: rgb(104, 165, 112);
@@ -35,6 +38,15 @@
           gap: 2rem;
           flex-wrap: wrap;
           .blogList {
+            .delete {
+              cursor: pointer;
+              padding: 0.4rem 1rem;
+              border-radius: 12px;
+              color: #fff;
+              span{
+                  padding-right: 1.3rem;
+              }
+          }
             width: 300px;
             border: 1px solid grey;
       &:hover{

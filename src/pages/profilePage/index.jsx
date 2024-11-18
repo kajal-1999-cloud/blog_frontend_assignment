@@ -85,10 +85,12 @@ function ProfilePage() {
     fetchPosts();
   }, []);
 
-
-  if (!setBlogData) return <div ><Spin /></div>;
-
-
+  if (!setBlogData)
+    return (
+      <div>
+        <Spin />
+      </div>
+    );
   return (
     <>
       <Navbar />
@@ -123,6 +125,16 @@ function ProfilePage() {
                           {item.content.slice(0, 100)}
                           {item.content.length > 100 && "...Read more"}
                         </p>
+                      </div>
+
+                      <div className={styles.delete}>
+                        <span onClick={() => handleDelete(blogData._id)}>
+                          {SvgRepo.Delete}
+                        </span>
+                        <span>{SvgRepo.edit}</span>
+                        <span>{blogData?.likes?.length} {SvgRepo.likes}{" "}
+                          
+                        </span>
                       </div>
                     </div>
                   );
