@@ -11,7 +11,7 @@ const { Option } = Select;
 const Navbar = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   if (token) {
     const decodedToken = jwtDecode(token);
@@ -19,15 +19,6 @@ const navigate = useNavigate()
     console.log(decodedToken);
   }
 
-
-  const handleCreateBlog = () => {
-    if (!token) {
-      message.warning('Please login to create a blog');
-      navigate('/');
-    } else {
-      navigate('/create');
-    }
-  };
   return (
     <div className={styles.navbar}>
       <Link to={"/"}>
@@ -35,17 +26,42 @@ const navigate = useNavigate()
       </Link>
       <div className={`${styles.navlinks} ${styles.desktopView}`}>
         <Link to={"/"}>
-        <span>{SvgRepo.blog}</span>
+          <span>{SvgRepo.blog}</span>
           <p> Blogs </p>
         </Link>
-        <Link onClick={handleCreateBlog}  >
-        <span>{SvgRepo.createPost}</span>
-          <p>Create Blog</p>
-        </Link>
+        <div
+          className={styles.createBlog}
+          onClick={() => {
+            if (!token) {
+              message.warning("Please login to create a blog");
+              navigate("/");
+            } else {
+              navigate("/create");
+            }
+          }}
+        >
+          <Link >
+            <span
+              onClick={() => {
+                if (!token) message.warning("Please login to create a blog");
+              }}
+            >
+              {SvgRepo.createPost}
+            </span>
+            <p
+              onClick={() => {
+                if (!token) message.warning("Please login to create a blog");
+              }}
+            >
+              Create Blog
+            </p>
+          </Link>
+        </div>
+
         {token ? (
           <div className={styles.loginIcon}>
             <span>{SvgRepo.notification}</span>
-            <span onClick={() => navigate('/profile')}>K</span>
+            <span onClick={() => navigate("/profile")}>K</span>
           </div>
         ) : (
           <button

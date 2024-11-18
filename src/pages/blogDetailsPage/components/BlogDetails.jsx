@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { SvgRepo } from "../../../components/SvgRepo";
 import styles from "../styles/blogDetails.module.scss";
-import { message } from "antd";
+import { message, Spin } from "antd";
 
 export function BlogDetails() {
   const { id } = useParams(); 
@@ -87,9 +87,7 @@ export function BlogDetails() {
     }
   };
 
-  if (!blogDetails) return <div>Loading...</div>;
-
-
+  if (!blogDetails) return <div><Spin/></div>;
 
   return (
     <div className={styles.blogDetails}>

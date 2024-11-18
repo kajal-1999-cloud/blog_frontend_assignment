@@ -9,7 +9,7 @@ import axios from "axios";
 
 export const BlogList = () => {
   const [loading, setLoading] = useState()
-  const [blogData, setBlogData] = useState([])
+  const [blogData, setBlogData] = useState(null)
   const token = localStorage.getItem("token");
 
   const navigate = useNavigate()
@@ -67,10 +67,13 @@ message.warning("please login")
   useEffect(() => {
     fetchPosts()
   },[])
+
+  if (!blogData) return <div style={{textAlign:"center"}}><Spin/></div>;
+
   return (
     <div className={styles.listContainer}>
       <div className={styles.listWrapper}>
-        {blogData?.map((item) => {
+       { blogData?.map((item) => {
           return (
             <div className={styles.blogList} onClick={() => handleNavigate(item._id)}>
               {/* <div className={styles.imageWrapper}>
@@ -87,7 +90,9 @@ message.warning("please login")
               </div>
             </div>
           );
-        })}
+        })
+      }
+       
       </div>
     </div>
   );
