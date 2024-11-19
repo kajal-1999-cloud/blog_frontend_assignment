@@ -109,14 +109,14 @@ export const CreatePostPage = () => {
               </Form.Item>
 
               <Form.Item
-                label="Tags (comma-separated)"
+                label="Tags"
                 name="tags"
                 rules={[{ required: true, message: "Please enter some tags!" }]}
               >
                 <Input />
               </Form.Item>
 
-              {/* <Form.Item
+              <Form.Item
                 label="Image"
                 name="image"
                 rules={[
@@ -128,7 +128,7 @@ export const CreatePostPage = () => {
                   accept="image/*"
                   onChange={handleFileChange}
                 />
-              </Form.Item> */}
+              </Form.Item>
 
               <Form.Item>
                 <Button type="primary" htmlType="submit">
