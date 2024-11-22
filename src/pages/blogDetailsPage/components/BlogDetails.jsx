@@ -37,7 +37,7 @@ export function BlogDetails() {
       } catch (err) {
         console.error(err);
         message.error("server error");
-        // navigate("/"); // Redirect to home on error
+        // navigate("/"); 
       }
     };
     fetchBlogDetails();
