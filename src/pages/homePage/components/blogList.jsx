@@ -71,7 +71,6 @@ export const BlogList = () => {
     if (token) {
       navigate(`/blogDetails/${blogId}`);
     } else {
-      // setModalOpen(true);
       setOpenModalId(blogId);
       message.warning("please login")
     }
@@ -97,6 +96,11 @@ export const BlogList = () => {
                 className={styles.blogList}
                 onClick={() => handleNavigate(item._id)}
               >
+                <div className={styles.imageWrapper}>
+                {/* <img src={`${import.meta.env.VITE_BACKEND_API}/${item.image}`} alt="" /> */}
+                {/* <img src={`${item.image}`} alt="" /> */}
+
+                </div>
                
                 <div className={styles.paraWrapper}>
                   <h4>{item.title.toUpperCase()}</h4>

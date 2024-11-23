@@ -65,7 +65,10 @@ export const AuthLogin = ({ modalOpen, setModalOpen, id }) => {
       );
       message.success("Registration successful! Please log in.");
       setShowRegister(false);
-      navigate(`/blogDetails/${id}`);
+      if(id !== undefined){
+        navigate(`/blogDetails/${id}`);
+
+      }
     } catch (err) {
       setError(
         err.response?.data?.message || "An error occurred. Please try again."

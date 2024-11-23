@@ -6,19 +6,28 @@ import axios from "axios";
 import { SvgRepo } from "../../../components/SvgRepo";
 import styles from "../styles/blogDetails.module.scss";
 import { message, Spin } from "antd";
+import io from "socket.io-client";  
+
+
+const socket = io(import.meta.env.VITE_BACKEND_API);
+
 
 export function BlogDetails() {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = token ? jwtDecode(token)?.id : null;
   const [blogDetails, setBlogDetails] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"));
-  // Decode token to get user ID
-  const token = localStorage.getItem("token");
-  const userId = token ? jwtDecode(token)?.id : null;
-  console.log("token", token);
+  const [showComments, setShowComments] = useState(false);
+  const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState([]);
+
+  let commentData 
+  
   // Fetch blog details by ID
-  useEffect(() => {
+useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
         const response = await axios.get(
@@ -30,22 +39,41 @@ export function BlogDetails() {
           }
         );
         setBlogDetails(response.data);
-        console.log(response);
+        setComments(response.data.comments || []);
         setIsLiked(
           response?.data?.likes?.some((like) => like.userId === userId)
         );
       } catch (err) {
         console.error(err);
-        message.error("server error");
-        // navigate("/"); 
+        message.error("Server error");
       }
     };
-    fetchBlogDetails();
-  }, [id, userId, token, navigate]);
 
+    fetchBlogDetails();
+
+    // Listen for new comments via Socket.IO
+  
+  }, [id, userId, token]);
+
+
+  useEffect(()=> {
+    socket.emit("joinBlogRoom", id);
+    socket.on("commentAdded", (data) => {
+      console.log("comments on ", data.comment)
+      if (data.blogId === id) {
+        setComments((prev) => [...prev, data.comment]);
+      }
+    });
+
+    return () => {
+      socket.off("commentAdded");
+    };
+  },[id])
   // delete post
   const handleDelete = async (postId) => {
-    const confirmed = window.confirm("Are you sure you want to delete this post?");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
     if (!confirmed) return;
     try {
       await axios.delete(
@@ -63,10 +91,31 @@ export function BlogDetails() {
       alert("Failed to delete the post");
     }
   };
+  const handleAddComment = () => {
+    if (!newComment.trim()) return;
+
+     commentData = {
+      blogId: id,
+      comment:{
+        userId,
+        name: user?.name,
+        comment: newComment,
+      }
+     
+    };
+console.log("commentData", commentData)
+    socket.emit("newComment", commentData);
+// setComments([...comments, commentData.comment])
+
+    console.log("data added")
+    setNewComment(""); 
+  };
+
+
 
   // like/unlike
   const handleLike = async (postId) => {
-    console.log("hello")
+    console.log("hello");
     try {
       await axios.post(
         `${import.meta.env.VITE_BACKEND_API}/api/blogs/like/post/${postId}`,
@@ -90,7 +139,12 @@ export function BlogDetails() {
     }
   };
 
-  if (!blogDetails) return <div><Spin/></div>;
+  if (!blogDetails)
+    return (
+      <div>
+        <Spin />
+      </div>
+    );
 
   return (
     <div className={styles.blogDetails}>
@@ -102,47 +156,69 @@ export function BlogDetails() {
           {/* <img src={blogDetails.image} alt={blogDetails.title} /> */}
           <div className={styles.titleAndControls}>
             <h3 className={styles.title}>{blogDetails.title.toUpperCase()}</h3>
-            {blogDetails.userId === userId ? (
+            {blogDetails.userId === userId && (
               <div className={styles.controls}>
                 <div className={styles.delete}>
-              
                   <span onClick={() => handleDelete(blogDetails._id)}>
                     {SvgRepo.Delete}
                   </span>
-                  <span onClick={() => navigate(`/edit/post/${blogDetails._id}`)}>{SvgRepo.edit}</span>
-                  <span>
-                  {isLiked ? (
-                    <>
-                      {" "}
-                      {blogDetails?.likes?.length} {SvgRepo.likes}{" "}
-                    </>
-                  ) : (
-                    SvgRepo.outLineLike
-                  )}
-                    </span>
+                  <span
+                    onClick={() => navigate(`/edit/post/${blogDetails._id}`)}
+                  >
+                    {SvgRepo.edit}
+                  </span>
                 </div>
               </div>
-            ) : (
-              <div className={styles.like}>
+            )}
+          </div>
+
+          <div className={styles.desc}>
+            <p>{blogDetails.content}</p>
+            <div>
+              <span onClick={() => setShowComments(!showComments)}>{SvgRepo.Comment}</span>
+              
                 <span onClick={() => handleLike(blogDetails._id)}>
                   {isLiked ? (
                     <>
                       {" "}
-                      {blogDetails?.likes?.length} {SvgRepo.likes}{" "}
+                     <b> {blogDetails?.likes?.length}</b> {SvgRepo.likes}{" "}
                     </>
-                  ) : <span >{ SvgRepo.outLineLike}</span>
-                   
-                  }
+                  ) : (
+                    SvgRepo.outLineLike
+                  )}
                 </span>
-              </div>
-            )}
+            
+            </div>
           </div>
-         
-          <div className={styles.descAndLikes}>
-            <p className={styles.desc}>
-              
-              {blogDetails.content}
-            </p>
+
+          {showComments && (
+            <div className={styles.commentSection}>
+              <div className={styles.commentBox}>
+                <input
+                  type="text"
+                  placeholder="Write a comment..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  className={styles.commentInput}
+                />
+                <button onClick={handleAddComment} className={styles.addButton}>
+                  Add
+                </button>
+              </div>
+
+              <div className={styles.commentList}>
+                {comments.slice().reverse().map((comment, index) => (
+                  <div key={index} className={styles.comment}>
+                    <strong>{comment.name}</strong> •{" "}
+                    <span>{format(comment.createdAt)}</span>
+                    <p>{comment.comment}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          <div>
+
           </div>
         </div>
       </div>
