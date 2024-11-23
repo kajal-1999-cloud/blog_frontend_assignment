@@ -179,12 +179,13 @@ console.log("commentData", commentData)
               
                 <span onClick={() => handleLike(blogDetails._id)}>
                   {isLiked ? (
-                    <>
-                      {" "}
-                     <b> {blogDetails?.likes?.length}</b> {SvgRepo.likes}{" "}
+                    <> 
+                     <b> {blogDetails?.likes?.length}</b> {SvgRepo.likes}
                     </>
                   ) : (
-                    SvgRepo.outLineLike
+<div style={{marginTop:"-0px", display:"flex"}}>
+<span style={{marginTop:"12px"}}> <b>{blogDetails?.likes?.length}</b></span> <span >{ SvgRepo.outLineLike}</span>
+</div>
                   )}
                 </span>
             
