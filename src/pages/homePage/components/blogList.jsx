@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/blogList.module.scss";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
+import { format } from "timeago.js";
 import { SvgRepo } from "../../../components/SvgRepo";
 import { Spin } from "antd";
 import img1 from "../../../assets/img11.jpg";
@@ -97,15 +98,16 @@ export const BlogList = () => {
                 onClick={() => handleNavigate(item._id)}
               >
                 <div className={styles.imageWrapper}>
-                {/* <img src={`${import.meta.env.VITE_BACKEND_API}/${item.image}`} alt="" /> */}
+                <img src={`${import.meta.env.VITE_BACKEND_API}${item.image}`} alt="" />
                 {/* <img src={`${item.image}`} alt="" /> */}
 
                 </div>
                
                 <div className={styles.paraWrapper}>
                   <h4>{item.title.toUpperCase()}</h4>
-                  <p>{item.content.slice(0, 200)}</p>
-                  <span> {item.content.length > 200 && "...Read more"} </span>
+                  <span>{format(item.createdAt)}</span>
+                  <p>{item.content.slice(0, 150)}   <span> {item.content.length > 150 && "...Read more"} </span></p>
+                
                 </div>
               </div>
               <AuthLogin

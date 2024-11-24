@@ -1,4 +1,10 @@
 .listContainer {
+  max-width: 1080px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
   .listWrapper {
     display: flex;
     gap: 2rem;
@@ -6,6 +12,10 @@
     .blogList {
       width: 300px;
       border: 1px solid grey;
+  box-shadow: 1px -1px 2px grey;
+  border-radius:10px;
+  background-color: rgb(248, 248, 248);
+
 &:hover{
   cursor: pointer;
   box-shadow: 1px 1px 5px grey;
@@ -21,6 +31,16 @@
       .paraWrapper {
            margin: 1rem;
            margin-bottom: 2rem;
+           h4{
+            margin-bottom: 0;
+           }
+           p{
+            font-size: 14px;
+           }
+           span{
+            color: grey;
+            font-size: 14px;
+           }
       }
     }
   }

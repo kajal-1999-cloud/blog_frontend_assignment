@@ -119,14 +119,16 @@ function ProfilePage() {
                       className={styles.blogList}
                       onClick={() => handleNavigate(item._id)}
                     >
-                      {/* <div className={styles.imageWrapper}>
-<img src={item.image} alt="" />
-</div> */}
+                      <div  className={styles.imageWrapper}>
+                  <img src={`${import.meta.env.VITE_BACKEND_API}${item.image}`} alt="" />
+
+                        </div>
+
                       <div className={styles.paraWrapper}>
                         <h4>{item.title.toUpperCase()}</h4>
                         <p>
                           {item.content.slice(0, 100)}
-                          {item.content.length > 100 && "...Read more"}
+                          <span>{item.content.length > 100 && "...Read more"}</span>
                         </p>
                       </div>
 

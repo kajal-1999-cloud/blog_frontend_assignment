@@ -1,6 +1,6 @@
 .profilePage{
     width: 80vw;
-    min-height: 90vh;
+    min-height: 100vh;
    margin: auto;
    margin-top: 1rem;
    box-shadow: 2px 2px 5px grey;
@@ -10,7 +10,6 @@
         justify-content: center;
         gap: 2rem;
    border-bottom: 1px solid rgb(209, 205, 205);
-
 
   
 
@@ -38,6 +37,9 @@
           gap: 2rem;
           flex-wrap: wrap;
           .blogList {
+background-color: whitesmoke;
+border-radius: 10px;
+padding-bottom: 10px;
             .delete {
               cursor: pointer;
               padding: 0.4rem 1rem;
@@ -64,6 +66,9 @@
             .paraWrapper {
                  margin: 1rem;
                  margin-bottom: 2rem;
+                 span{
+                       color: grey;
+                 }
             }
           }
         }

@@ -153,6 +153,9 @@ console.log("commentData", commentData)
           <Link to="/" className={styles.goBack}>
             <span className={styles.arrow}>Go Back</span>
           </Link>
+                <img src={`${import.meta.env.VITE_BACKEND_API}${blogDetails.image}`} alt="" />
+                {/* <img src={`${item.image}`} alt="" /> */}
+
           {/* <img src={blogDetails.image} alt={blogDetails.title} /> */}
           <div className={styles.titleAndControls}>
             <h3 className={styles.title}>{blogDetails.title.toUpperCase()}</h3>
